@@ -161,6 +161,8 @@ module.exports = class extends BaseGenerator {
                 const cb = this.async();
                 this.log();
                 this.log(chalk.bold('Create database'));
+                this.log(chalk.bold(this.dbPassword));
+                this.log(chalk.bold(this.dbUsername));
 
                 const rds = this.awsFactory.getRds();
 
