@@ -109,6 +109,7 @@ function createDbInstance(params, callback) {
         DBInstanceClass: params.dbInstanceClass,
         DBInstanceIdentifier: params.dbName,
         Engine: params.dbEngine,
+        EngineVersion: params.engineVersion,
         MasterUserPassword: params.dbPassword,
         MasterUsername: params.dbUsername,
         DBName: params.dbName,

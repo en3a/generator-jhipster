@@ -45,6 +45,12 @@ module.exports = class extends BaseGenerator {
                     this.awsRegion = awsConfig.awsRegion;
                     this.dbName = awsConfig.dbName;
                     this.dbInstanceClass = awsConfig.dbInstanceClass;
+                    this.dbUsername = awsConfig.dbUsername;
+                    this.dbPassword = awsConfig.dbPassword;
+                    this.dbUrl = awsConfig.dbUrl;
+                    this.engineVersion = awsConfig.engineVersion;
+                    this.instanceMinSize = awsConfig.instanceMinSize;
+                    this.instanceMaxSize = awsConfig.instanceMaxSize;
 
                     this.log(chalk.green('This is an existing deployment, using the configuration from your .yo-rc.json file \n' +
                         'to deploy your application...\n'));
@@ -85,19 +91,19 @@ module.exports = class extends BaseGenerator {
                 this.awsFactory.init({ region: this.awsRegion });
                 cb();
             },
-            saveConfig() {
-                this.config.set('aws', {
-                    applicationName: this.applicationName,
-                    environmentName: this.environmentName,
-                    bucketName: this.bucketName,
-                    instanceType: this.instanceType,
-                    awsRegion: this.awsRegion,
-                    dbName: this.dbName,
-                    dbInstanceClass: this.dbInstanceClass,
-                    dbPassword: this.dbPassword,
-                    dbUsername: this.dbUsername
-                });
-            }
+            // saveConfig() {
+            //     this.config.set('aws', {
+            //         applicationName: this.applicationName,
+            //         environmentName: this.environmentName,
+            //         bucketName: this.bucketName,
+            //         instanceType: this.instanceType,
+            //         awsRegion: this.awsRegion,
+            //         dbName: this.dbName,
+            //         dbInstanceClass: this.dbInstanceClass,
+            //         dbPassword: this.dbPassword,
+            //         dbUsername: this.dbUsername
+            //     });
+            // }
         };
     }
 
@@ -224,7 +230,9 @@ module.exports = class extends BaseGenerator {
                     dbUrl: this.dbUrl,
                     dbUsername: this.dbUsername,
                     dbPassword: this.dbPassword,
-                    instanceType: this.instanceType
+                    instanceType: this.instanceType,
+                    instanceMaxSize: this.instanceMaxSize,
+                    instanceMinSize: this.instanceMinSize
                 };
 
                 eb.createApplication(params, (err, data) => {

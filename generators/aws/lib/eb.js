@@ -124,6 +124,8 @@ function createEnvironment(params, callback) {
     const dbPassword = params.dbPassword;
     const instanceType = params.instanceType;
     const versionLabel = params.versionLabel;
+    const instanceMaxSize = params.instanceMaxSize;
+    const instanceMinSize = params.instanceMinSize;
 
     const elasticbeanstalk = new aws.ElasticBeanstalk();
 
@@ -147,6 +149,11 @@ function createEnvironment(params, callback) {
                 },
                 {
                     Namespace: 'aws:elasticbeanstalk:application:environment',
+                    OptionName: 'JDBC_CONNECTION_STRING',
+                    Value: dbUrl
+                },
+                {
+                    Namespace: 'aws:elasticbeanstalk:application:environment',
                     OptionName: 'spring.datasource.username',
                     Value: dbUsername
                 },
@@ -159,6 +166,21 @@ function createEnvironment(params, callback) {
                     Namespace: 'aws:autoscaling:launchconfiguration',
                     OptionName: 'InstanceType',
                     Value: instanceType
+                },
+                {
+                    Namespace: 'aws:autoscaling:autoscalinggroup',
+                    OptionName: 'MaxSize',
+                    Value: instanceMaxSize
+                },
+                {
+                    Namespace: 'aws:autoscaling:autoscalinggroup',
+                    OptionName: 'MinSize',
+                    Value: instanceMinSize
+                },
+                {
+                    Namespace: 'aws:autoscaling:launchconfiguration',
+                    OptionName: 'KeyName',
+                    Value: 'autokorrektori'
                 },
                 {
                     Namespace: 'aws:autoscaling:launchconfiguration',
@@ -201,8 +223,13 @@ function getLatestSolutionStackName(callback) {
 
 function updateEnvironment(params, callback) {
     const environmentName = params.environmentName;
+    const dbUrl = params.dbUrl;
+    const dbUsername = params.dbUsername;
+    const dbPassword = params.dbPassword;
     const instanceType = params.instanceType;
     const versionLabel = params.versionLabel;
+    const instanceMaxSize = params.instanceMaxSize;
+    const instanceMinSize = params.instanceMinSize;
 
     const elasticbeanstalk = new aws.ElasticBeanstalk();
 
@@ -210,9 +237,54 @@ function updateEnvironment(params, callback) {
         EnvironmentName: environmentName,
         OptionSettings: [
             {
+                Namespace: 'aws:elasticbeanstalk:application:environment',
+                OptionName: 'spring.profiles.active',
+                Value: 'prod'
+            },
+            {
+                Namespace: 'aws:elasticbeanstalk:application:environment',
+                OptionName: 'spring.datasource.url',
+                Value: dbUrl
+            },
+            {
+                Namespace: 'aws:elasticbeanstalk:application:environment',
+                OptionName: 'JDBC_CONNECTION_STRING',
+                Value: dbUrl
+            },
+            {
+                Namespace: 'aws:elasticbeanstalk:application:environment',
+                OptionName: 'spring.datasource.username',
+                Value: dbUsername
+            },
+            {
+                Namespace: 'aws:elasticbeanstalk:application:environment',
+                OptionName: 'spring.datasource.password',
+                Value: dbPassword
+            },
+            {
                 Namespace: 'aws:autoscaling:launchconfiguration',
                 OptionName: 'InstanceType',
                 Value: instanceType
+            },
+            {
+                Namespace: 'aws:autoscaling:autoscalinggroup',
+                OptionName: 'MaxSize',
+                Value: instanceMaxSize
+            },
+            {
+                Namespace: 'aws:autoscaling:autoscalinggroup',
+                OptionName: 'MinSize',
+                Value: instanceMinSize
+            },
+            {
+                Namespace: 'aws:autoscaling:launchconfiguration',
+                OptionName: 'KeyName',
+                Value: 'autokorrektori'
+            },
+            {
+                Namespace: 'aws:autoscaling:launchconfiguration',
+                OptionName: 'IamInstanceProfile',
+                Value: 'aws-elasticbeanstalk-ec2-role'
             }
         ],
         VersionLabel: versionLabel
