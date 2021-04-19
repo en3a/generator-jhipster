@@ -168,16 +168,6 @@ function createEnvironment(params, callback) {
                     Value: instanceType
                 },
                 {
-                    Namespace: 'aws:autoscaling:autoscalinggroup',
-                    OptionName: 'MaxSize',
-                    Value: instanceMaxSize
-                },
-                {
-                    Namespace: 'aws:autoscaling:autoscalinggroup',
-                    OptionName: 'MinSize',
-                    Value: instanceMinSize
-                },
-                {
                     Namespace: 'aws:autoscaling:launchconfiguration',
                     OptionName: 'KeyName',
                     Value: 'autokorrektori'
