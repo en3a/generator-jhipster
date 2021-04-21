@@ -20,6 +20,7 @@ Eb.prototype.createApplication = function createApplication(params, callback) {
     const dbUsername = params.dbUsername;
     const dbPassword = params.dbPassword;
     const instanceType = params.instanceType;
+    const elasticSearchUrl = params.elasticSearchUrl;
 
     const applicationParams = {
         applicationName,
@@ -126,6 +127,7 @@ function createEnvironment(params, callback) {
     const versionLabel = params.versionLabel;
     const instanceMaxSize = params.instanceMaxSize;
     const instanceMinSize = params.instanceMinSize;
+    const elasticSearchUrl = params.elasticSearchUrl;
 
     const elasticbeanstalk = new aws.ElasticBeanstalk();
 
@@ -141,6 +143,11 @@ function createEnvironment(params, callback) {
                     Namespace: 'aws:elasticbeanstalk:application:environment',
                     OptionName: 'spring.profiles.active',
                     Value: 'prod'
+                },
+                {
+                    Namespace: 'aws:elasticbeanstalk:application:environment',
+                    OptionName: 'spring.data.elasticsearch.cluster-nodes',
+                    Value: elasticSearchUrl
                 },
                 {
                     Namespace: 'aws:elasticbeanstalk:application:environment',
@@ -215,6 +222,7 @@ function updateEnvironment(params, callback) {
     const versionLabel = params.versionLabel;
     const instanceMaxSize = params.instanceMaxSize;
     const instanceMinSize = params.instanceMinSize;
+    const elasticSearchUrl = params.elasticSearchUrl;
 
     const elasticbeanstalk = new aws.ElasticBeanstalk();
 
@@ -225,6 +233,11 @@ function updateEnvironment(params, callback) {
                 Namespace: 'aws:elasticbeanstalk:application:environment',
                 OptionName: 'spring.profiles.active',
                 Value: 'prod'
+            },
+            {
+                Namespace: 'aws:elasticbeanstalk:application:environment',
+                OptionName: 'spring.data.elasticsearch.cluster-nodes',
+                Value: elasticSearchUrl
             },
             {
                 Namespace: 'aws:elasticbeanstalk:application:environment',

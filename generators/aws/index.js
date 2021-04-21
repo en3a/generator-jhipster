@@ -51,6 +51,7 @@ module.exports = class extends BaseGenerator {
                     this.engineVersion = awsConfig.engineVersion;
                     this.instanceMinSize = awsConfig.instanceMinSize;
                     this.instanceMaxSize = awsConfig.instanceMaxSize;
+                    this.elasticSearchUrl = awsConfig.elasticSearchUrl;
 
                     this.log(chalk.green('This is an existing deployment, using the configuration from your .yo-rc.json file \n' +
                         'to deploy your application...\n'));
@@ -230,7 +231,8 @@ module.exports = class extends BaseGenerator {
                     dbPassword: this.dbPassword,
                     instanceType: this.instanceType,
                     instanceMaxSize: this.instanceMaxSize,
-                    instanceMinSize: this.instanceMinSize
+                    instanceMinSize: this.instanceMinSize,
+                    elasticSearchUrl: this.elasticSearchUrl
                 };
 
                 eb.createApplication(params, (err, data) => {
