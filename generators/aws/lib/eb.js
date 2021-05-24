@@ -146,11 +146,6 @@ function createEnvironment(params, callback) {
                 },
                 {
                     Namespace: 'aws:elasticbeanstalk:application:environment',
-                    OptionName: 'spring.data.elasticsearch.cluster-nodes',
-                    Value: elasticSearchUrl
-                },
-                {
-                    Namespace: 'aws:elasticbeanstalk:application:environment',
                     OptionName: 'spring.datasource.url',
                     Value: dbUrl
                 },
@@ -233,11 +228,6 @@ function updateEnvironment(params, callback) {
                 Namespace: 'aws:elasticbeanstalk:application:environment',
                 OptionName: 'spring.profiles.active',
                 Value: 'prod'
-            },
-            {
-                Namespace: 'aws:elasticbeanstalk:application:environment',
-                OptionName: 'spring.data.elasticsearch.cluster-nodes',
-                Value: elasticSearchUrl
             },
             {
                 Namespace: 'aws:elasticbeanstalk:application:environment',
