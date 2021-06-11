@@ -208,7 +208,7 @@ module.exports = class extends BaseGenerator {
                     if (err) {
                         this.error(chalk.red(err.message));
                     } else {
-                        // this.dbUrl = data.dbUrl;
+                        this.dbUrl = data.dbUrl;
                         this.log(data.message);
                         cb();
                     }

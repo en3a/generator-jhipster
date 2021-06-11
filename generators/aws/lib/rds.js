@@ -55,7 +55,7 @@ Rds.prototype.createDatabaseUrl = function createDatabaseUrl(params, callback) {
             callback(err, null);
         } else {
             const dbEndpoint = data.DBInstances[0].Endpoint;
-            const dbUrl = `jdbc:${dbEngine}://${dbEndpoint.Address}:${dbEndpoint.Port}/${dbName}`;
+            const dbUrl = `jdbc:${dbEngine}://${dbEndpoint.Address}:${dbEndpoint.Port}/${dbName}?useUnicode=true&characterEncoding=utf8&useSSL=false`;
             const message = `Database available at ${dbUrl}`;
             callback(null, { message, dbUrl });
         }
